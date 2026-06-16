@@ -1,0 +1,23 @@
+name: Update football results
+
+on:
+  workflow_dispatch:   # manual run for now
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Create test file
+        run: echo '{"hello":"world"}' > results.json
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add results.json
+          git commit -m "add results" || echo "no changes"
+          git push
