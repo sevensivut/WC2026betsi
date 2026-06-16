@@ -3,6 +3,9 @@ name: Update football results
 on:
   workflow_dispatch:   # manual run for now
 
+  permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
