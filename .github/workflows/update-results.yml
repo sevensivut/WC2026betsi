@@ -1,9 +1,9 @@
 name: Update football results
 
 on:
-  workflow_dispatch:   # manual run for now
+  workflow_dispatch:
 
-  permissions:
+permissions:
   contents: write
 
 jobs:
