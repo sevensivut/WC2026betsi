@@ -1418,24 +1418,21 @@ function recalcMatch(m){
 }
 
 /* ============================================================
-   APPLY FETCHED RESULTS
+   APPLY FETCHED RESULTS  (shared by JSON fetch + CSV import)
    ============================================================ */
-function applyResults(games, flipped=false){
-  // games: [{home, away, homeScore, awayScore, status}]
+function applyResults(games){
   let updated=0, live=0;
   for(const g of games){
     const m = findMatch(g.home, g.away);
     if(!m) continue;
-    if(g.status==='live' || g.status==='in_play' || g.status==='IN_PLAY' || g.status==='LIVE' || g.status==='1H' || g.status==='HT' || g.status==='2H' || g.status==='ET') live++;
+    const st = (g.status||'').toUpperCase();
+    if(['IN_PLAY','LIVE','1H','HT','2H','ET','PAUSED'].includes(st)) live++;
     if(g.homeScore===null || g.homeScore===undefined) continue;
-    // Detect if API returned teams in flipped order
     const homeFlip = m.home !== normTeam(g.home);
     const a = homeFlip ? g.awayScore : g.homeScore;
     const b = homeFlip ? g.homeScore : g.awayScore;
-    if(m.played && m.actualA===a && m.actualB===b) continue; // no change
-    m.played  = true;
-    m.actualA = a;
-    m.actualB = b;
+    if(m.played && m.actualA===a && m.actualB===b) continue;
+    m.played=true; m.actualA=a; m.actualB=b;
     recalcMatch(m);
     updated++;
   }
@@ -1443,182 +1440,90 @@ function applyResults(games, flipped=false){
 }
 
 /* ============================================================
-   WORLDCUP26.IR  (primary — no key)
+   SYNC — fetches ./results.json committed by GitHub Actions
+   No API keys needed in the browser. Ever.
    ============================================================ */
-async function fetchWorldcup26ir(){
-  const r = await fetch('https://worldcup26.ir/get/games', {mode:'cors'});
-  if(!r.ok) throw new Error(`worldcup26.ir HTTP ${r.status}`);
-  const data = await r.json();
-  // normalise to common shape — probe first item for field names
-  const arr = Array.isArray(data) ? data : (data.games || data.matches || data.data || []);
-  return arr.map(g=>{
-    // field-name variants seen in similar APIs
-    const home   = g.home_team || g.homeTeam || g.home || '';
-    const away   = g.away_team || g.awayTeam || g.away || '';
-    const hs     = g.home_score ?? g.homeScore ?? g.score?.home ?? g.home_goals ?? null;
-    const as_    = g.away_score ?? g.awayScore ?? g.score?.away ?? g.away_goals ?? null;
-    const status = g.status || g.match_status || 'scheduled';
-    // extract name string if team is an object
-    const hname = typeof home==='object' ? (home.name||home.team_name||'') : home;
-    const aname = typeof away==='object' ? (away.name||away.team_name||'') : away;
-    return {home:hname, away:aname, homeScore:hs!==null?+hs:null, awayScore:as_!==null?+as_:null, status};
-  });
-}
-
-/* ============================================================
-   FOOTBALL-DATA.ORG  (fallback — needs free API key)
-   ============================================================ */
-async function fetchFootballData(key){
-  const r = await fetch('https://api.football-data.org/v4/competitions/WC/matches', {
-    headers:{'X-Auth-Token': key}
-  });
-  if(r.status===403) throw new Error('Virheellinen API-avain');
-  if(!r.ok) throw new Error(`football-data.org HTTP ${r.status}`);
-  const data = await r.json();
-  return (data.matches||[]).map(g=>({
-    home: g.homeTeam?.name || g.homeTeam?.shortName || '',
-    away: g.awayTeam?.name || g.awayTeam?.shortName || '',
-    homeScore: g.score?.fullTime?.home ?? null,
-    awayScore: g.score?.fullTime?.away ?? null,
-    status: g.status
-  }));
-}
-
-/* ============================================================
-   SYNC ORCHESTRATOR
-   ============================================================ */
-let syncTimer = null;
-let lastSyncMs = 0;
-let liveMatchCount = 0;
+let syncTimer=null, lastSyncMs=0, liveMatchCount=0;
 
 async function syncResults(silent=false){
   setSyncState('syncing');
   if(!silent) toast('🔄 Haetaan tuloksia…', 1500);
-  let games, source;
   try{
-    games  = await fetchWorldcup26ir();
-    source = 'worldcup26.ir';
-  } catch(e1){
-    console.warn('worldcup26.ir failed:', e1.message);
-    const key = localStorage.getItem('fdApiKey')||'';
-    if(!key){ setSyncState('idle'); showSettings(true); return; }
-    try{
-      games  = await fetchFootballData(key);
-      source = 'football-data.org';
-    } catch(e2){
-      setSyncState('error', e2.message);
-      toast('❌ Haku epäonnistui: '+e2.message);
-      return;
+    // Cache-busting param so browsers don't serve a stale copy
+    const r = await fetch('./results.json?_='+Date.now());
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+
+    const {updated, live} = applyResults(data.games || []);
+    liveMatchCount = live;
+    lastSyncMs = new Date(data.updated||Date.now()).getTime();
+
+    Object.keys(PANELS).forEach(k=>delete PANELS[k]);
+    document.querySelectorAll('.tabpanel').forEach(p=>{ p.innerHTML=''; });
+    initHero();
+    buildPanel(activeTab);
+
+    setSyncState(live>0 ? 'live' : 'ok', data.source||'');
+
+    clearTimeout(syncTimer);
+    // If matches are live, re-fetch every 90 s (Actions runs every 10 min,
+    // so fetching more often just gets the same file — but catches edge cases)
+    if(live>0) syncTimer = setTimeout(()=>syncResults(true), 90000);
+
+    if(!silent){
+      const ts = lastSyncMs ? new Date(lastSyncMs).toLocaleTimeString('fi-FI') : '?';
+      if(updated>0) toast(`✅ ${updated} tulosta päivitetty · päivitetty ${ts}`);
+      else toast(`✅ Ajan tasalla · tulokset ${ts}`);
     }
-  }
-
-  const {updated, live} = applyResults(games);
-  liveMatchCount = live;
-  lastSyncMs = Date.now();
-
-  // Rebuild UI
-  Object.keys(PANELS).forEach(k=>delete PANELS[k]);
-  document.querySelectorAll('.tabpanel').forEach(p=>{ p.innerHTML=''; });
-  initHero();
-  buildPanel(activeTab);
-
-  setSyncState(live>0 ? 'live' : 'ok');
-
-  // Auto-refresh if matches live
-  clearTimeout(syncTimer);
-  if(live>0) syncTimer = setTimeout(()=>syncResults(true), 60000);
-
-  if(!silent){
-    if(updated>0) toast(`✅ ${updated} tulosta päivitetty (${source})`);
-    else toast(`✅ Kaikki ajan tasalla (${source})`);
+  } catch(e){
+    console.warn('results.json fetch failed:', e.message);
+    setSyncState('error', e.message);
+    if(!silent) toast('⚠️ Ei yhteyttä results.json — tarkista GitHub Actions');
   }
 }
 
-function setSyncState(state, msg=''){
-  const btn = $id('syncBtn');
-  const ind = $id('syncIndicator');
+function setSyncState(state, source=''){
+  const btn=$id('syncBtn'), ind=$id('syncIndicator');
   if(!btn||!ind) return;
-  const labels = {syncing:'Haetaan…', ok:'Päivitetty', live:'LIVE', error:'Virhe', idle:'Päivitä'};
+  const labels={syncing:'Haetaan…',ok:'Ajan tasalla',live:'🔴 LIVE',error:'Virhe',idle:'Päivitä'};
   btn.textContent = labels[state]||'Päivitä';
   btn.disabled = state==='syncing';
   ind.className = 'sync-dot dot-'+state;
-  ind.title = state==='ok' ? 'Päivitetty '+new Date(lastSyncMs).toLocaleTimeString('fi-FI') :
-              state==='live'? `${liveMatchCount} ottelu käynnissä – päivittyy 60s välein` :
-              state==='error'? msg : '';
+  const ts = lastSyncMs ? new Date(lastSyncMs).toLocaleTimeString('fi-FI') : '';
+  ind.title =
+    state==='ok'   ? `Lähde: ${source} · ${ts}` :
+    state==='live' ? `${liveMatchCount} ottelu käynnissä · päivittyy 90 s välein` :
+    state==='error'? 'Tarkista GitHub Actions -loki' : '';
 }
 
 /* ============================================================
-   SETTINGS MODAL
-   ============================================================ */
-function showSettings(autoOpened=false){
-  if($id('settingsModal')) return;
-  const savedKey = localStorage.getItem('fdApiKey')||'';
-  const overlay = document.createElement('div');
-  overlay.id='settingsModal';
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;';
-  overlay.innerHTML=`
-    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);max-width:480px;width:100%;padding:28px;position:relative;">
-      <button id="closeSettings" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--chalk-faint);font-size:20px;cursor:pointer;">✕</button>
-      <div style="font-family:var(--font-display);font-size:22px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Live-tulospalvelu</div>
-      ${autoOpened?'<div style="background:var(--coral-dim);border:1px solid var(--coral);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--coral);margin-bottom:16px">worldcup26.ir ei vastannut — syötä football-data.org-avain varmuuden vuoksi.</div>':''}
-      <p style="color:var(--chalk-dim);font-size:14px;line-height:1.6;margin:0 0 18px">
-        Sovellus hakee ensin tulokset <b>worldcup26.ir</b>-palvelusta (ilmainen, ei avainta). Jos se ei toimi, käytetään <a href="https://www.football-data.org/client/register" target="_blank" style="color:var(--teal)">football-data.org</a>-varavaihtoehtoa (ilmainen, rekisteröinti tarvitaan).
-      </p>
-      <label style="display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk-faint);margin-bottom:8px;font-family:var(--font-mono)">football-data.org API-avain (valinnainen)</label>
-      <input id="fdKeyInput" type="text" placeholder="esim. a1b2c3d4e5f6..." value="${savedKey}"
-        style="width:100%;background:var(--pitch-2);border:1px solid var(--line);color:var(--chalk);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:13px;box-sizing:border-box;margin-bottom:16px">
-      <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button id="cancelSettings" class="btn">Peruuta</button>
-        <button id="saveSettings" class="btn btn-primary">Tallenna & kokeile</button>
-      </div>
-      <p style="font-size:11px;color:var(--chalk-faint);margin:14px 0 0;font-family:var(--font-mono)">Avain tallennetaan selaimesi local storageen. Se ei lähde mihinkään muualle.</p>
-    </div>`;
-  document.body.appendChild(overlay);
-  const close=()=>overlay.remove();
-  $id('closeSettings').onclick=close;
-  $id('cancelSettings').onclick=close;
-  overlay.addEventListener('click',e=>{ if(e.target===overlay) close(); });
-  $id('saveSettings').onclick=()=>{
-    const k=$id('fdKeyInput').value.trim();
-    if(k) localStorage.setItem('fdApiKey',k); else localStorage.removeItem('fdApiKey');
-    close();
-    syncResults();
-  };
-}
-
-/* ============================================================
-   TOPBAR WIRING  (live sync button + dot indicator)
+   TOPBAR WIRING  (no settings gear needed anymore)
    ============================================================ */
 function initSyncUI(){
   const right = document.querySelector('.topbar-right');
-  // Insert before import button
-  const dot  = document.createElement('span'); dot.id='syncIndicator'; dot.className='sync-dot dot-idle'; dot.title='';
-  const btn  = document.createElement('button'); btn.id='syncBtn'; btn.className='btn btn-primary'; btn.textContent='Live-tulokset';
-  const gear = document.createElement('button'); gear.className='btn'; gear.textContent='⚙'; gear.title='API-asetukset'; gear.setAttribute('aria-label','Asetukset');
-  btn.onclick  = ()=>syncResults();
-  gear.onclick = ()=>showSettings();
-  right.prepend(gear);
+  const dot = document.createElement('span');
+  dot.id='syncIndicator'; dot.className='sync-dot dot-idle'; dot.title='';
+  const btn = document.createElement('button');
+  btn.id='syncBtn'; btn.className='btn btn-primary'; btn.textContent='Live-tulokset';
+  btn.onclick = ()=>syncResults(false);
   right.prepend(btn);
   right.prepend(dot);
 }
 
 /* ============================================================
-   SYNC DOT STYLE  (injected)
+   SYNC DOT STYLES
    ============================================================ */
-(function injectSyncStyles(){
+(()=>{
   const s=document.createElement('style');
   s.textContent=`
-.sync-dot{
-  display:inline-block;width:9px;height:9px;border-radius:50%;
-  background:var(--chalk-faint);transition:background .3s;flex-shrink:0;cursor:help;
-}
+.sync-dot{display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:var(--chalk-faint);transition:background .3s;flex-shrink:0;cursor:help;}
 .dot-syncing{background:var(--amber);animation:pulse 1s infinite;}
 .dot-ok{background:var(--teal);}
 .dot-live{background:var(--coral);animation:pulse .8s infinite;}
 .dot-error{background:var(--coral);}
 .dot-idle{background:var(--chalk-faint);}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-`;
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}`;
   document.head.appendChild(s);
 })();
 
@@ -1628,8 +1533,7 @@ function initSyncUI(){
 initHero();
 buildPanel('standings');
 initSyncUI();
-// Auto-sync on load
-syncResults(true);
+syncResults(true);  // silent fetch on load
 </script>
 </body>
 </html>
