@@ -1,9 +1,9 @@
 name: Update football results
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: '*/10 * * * *'  # Auto-update every 10 minutes
+    - cron: '*/10 * * * *'
 
 permissions:
   contents: write
@@ -16,14 +16,54 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Fetch World Cup 2026 fixtures
+      - name: Fetch and process World Cup data
         run: |
-          # Fetch World Cup 2026 fixtures (League ID: 1, Season: 2026)
+          # Fetch fixtures
           curl -X GET \
             "https://v3.football.api-sports.io/fixtures?league=1&season=2026" \
             -H "x-rapidapi-key: ${{ secrets.API_FOOTBALL_KEY }}" \
             -H "x-rapidapi-host: v3.football.api-sports.io" \
-            -o results.json
+            -o fixtures.json
+          
+          # Parse with Node.js or Python to match your expected format
+          # Option 1: Use Python
+          python3 << 'EOF'
+          import json
+          import datetime
+          
+          # Load the API response
+          with open('fixtures.json', 'r') as f:
+              data = json.load(f)
+          
+          games = []
+          for fixture in data.get('response', []):
+              # Extract match data
+              home = fixture['teams']['home']['name']
+              away = fixture['teams']['away']['name']
+              home_score = fixture['goals']['home']
+              away_score = fixture['goals']['away']
+              status = fixture['fixture']['status']['short']
+              
+              # Only include played or live matches
+              if status in ['FT', '1H', '2H', 'HT', 'ET', 'PEN']:
+                  games.append({
+                      'home': home,
+                      'away': away,
+                      'homeScore': home_score if home_score is not None else 0,
+                      'awayScore': away_score if away_score is not None else 0,
+                      'status': status
+                  })
+          
+          # Create output in your expected format
+          output = {
+              'updated': datetime.datetime.now().isoformat(),
+              'source': 'API-Football.com',
+              'games': games
+          }
+          
+          with open('results.json', 'w') as f:
+              json.dump(output, f, indent=2)
+          EOF
 
       - name: Commit and push results
         run: |
