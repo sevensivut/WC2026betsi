@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WC26 Veikkauskilpailu</title>
+<title>Jäbät & Tunteet & Vedonlyönti</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -646,8 +646,8 @@ main{ padding: 36px 0 80px; min-height: 50vh; }
   <div class="wrap hero-inner">
     <div class="hero-text">
       <div class="eyebrow">FIFA World Cup 2026 · Ryhmävaihe · 12 lohkoa · 13 veikkaajaa</div>
-      <h1 class="hero-title">Kuka osaa <span class="accent">lukea</span> peliä?</h1>
-      <p class="hero-sub">Seuraa pisteitä, selaa veikkauksia ottelu kerrallaan ja katso kuka uskaltaa, kuka ei — ja kuka oli aivan väärässä.</p>
+      <h1 class="hero-title">Voitto <span class="accent">tai</span> kuolema</h1>
+      <p class="hero-sub">Kuka kokkaa, kuka fumblaa? Jos tää sivusto toimis edes yhden kierroksen turnauksen aikana, ois jo henkinen voitto</p>
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
       <div class="progress-label" id="progressText">Ladataan…</div>
     </div>
@@ -681,7 +681,7 @@ main{ padding: 36px 0 80px; min-height: 50vh; }
 </body>
 </html>
 <footer class="footer">
-  <div class="wrap">WC26 Veikkauskilpailu · Ryhmävaihe 2026 · Luotu rakkaudella ⚽</div>
+  <div class="wrap">WC26 Veikkaus · Ryhmävaihe 2026 · sessen vibakoodaama ⚽</div>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -1113,46 +1113,46 @@ function renderAwards(el){
       desc:`${winners(exactTop)} on arvannut täsmälleen oikein ${val(exactTop)} ottelussa — sekä oikea tulos että maaliparit.`
     },
     {
-      icon:'🔥',title:'Tulisarja',
+      icon:'🔥',title:'Striikki',
       who: winners(streakTop),
       value:`${val(streakTop)} oikeaa peräkkäin`,
-      desc:`${winners(streakTop)} pitää parhaan peräkkäisen oikean veikkaussarjan: ${val(streakTop)} ottelua putkeen.`
+      desc:`${winners(streakTop)} on tulittanut pisimmän osumapötkön: ${val(streakTop)} ottelua putkeen.`
     },
     {
-      icon:'💎',title:'Rohkea veikkaaja',
+      icon:'💎',title:'Ball Knower',
       who: winners(rarityTop),
       value:`${val(rarityPts)} pistettä harvinaisista osumista`,
       desc:`Pisteytys otteluissa joissa korkeintaan 4/13 sai oikein. ${winners(rarityTop)} löysi yllätykset muita paremmin.`
     },
     {
-      icon:'🤦',title:'Täysin väärässä',
+      icon:'🤦',title:'What is he cooking?',
       who: winners(zeroTop),
       value:`${val(zeroTop)} nollapistettä`,
-      desc:`${winners(zeroTop)} keräsi eniten täysiä häviöitä — ${val(zeroTop)} kertaa tulos oli täysin pielessä.`
+      desc:`${winners(zeroTop)} on kerännyt eniten täysiä häviöitä — ${val(zeroTop)} kertaa tulos oli täysin pielessä.`
     },
     {
-      icon:'🐑',title:'Lauman mukana',
+      icon:'🐑',title:'Lammasmaxxing',
       who: winners(crowdTop),
       value:`${val(crowdScore)} kertaa enemmistön kanssa`,
       desc:`Sai pisteet useimmin kun yli 8/13 veikkaajaa oli samaa mieltä tuloksesta. Viihtyvät lauman turvassa.`
     },
     {
-      icon:'⚽',title:'Maalifanaatikko',
+      icon:'⚽',title:'Overikingi',
       who: winners(goalTop),
       value:`${val(goalFan)} maalia veikattiin yhteensä`,
       desc:`${winners(goalTop)} uskoo spektaakkeliin — ennakoi eniten maaleja kaikissa 72 ottelussa.`
     },
     {
-      icon:'🧱',title:'Puolustusmestari',
+      icon:'🧱',title:'Underpappa',
       who: winners(defTop),
       value:`Vain ${val(defTop)} maalia veikattiin`,
       desc:`${winners(defTop)} odottaa tiukkaa torjuntavoittojen turnausta — ennakoi vähiten maaleja kaikissa 72 ottelussa.`
     },
     {
-      icon:'📈',title:'Loppukirijuoksija',
+      icon:'📈',title:'Loppukiri',
       who: winners(comebTop),
       value:`+${val(comebacks)} pistettä toisella puoliskolla`,
-      desc:`${winners(comebTop)} on vahvistunut puoliajalla — keräsi ${val(comebacks)} enemmän pistettä jälkimmäisistä otteluista.`
+      desc:`${winners(comebTop)} on vahvistunut viime matseissa — keräsi ${val(comebacks)} pistettä enemmän puolissa viimeisissä veikkauksissa, kuin puolissa ensimmäisissä.`
     },
   ];
 
@@ -1189,13 +1189,13 @@ function renderPlayers(el){
     const rarityWins = played.filter(m=>m.oikein!==null&&m.oikein<=4&&m.preds[p].pts>0).length;
 
     let traits = [];
-    if(exacts >= 3) traits.push(`<b>Tarkkuus</b>: ${exacts} täydellistä ennustetta`);
+    if(exacts >= 3) traits.push(`<b>Napakympin napsuttelija</b>: ${exacts} täydellistä ennustetta`);
     if(zeroes >= 9) traits.push(`<b>Riskinottaja</b>: ${zeroes} nollapistettä`);
-    if(avgGoals >= 3.2) traits.push(`<b>Hyökkäyspeli</b>: ${avgGoals.toFixed(1)} maalia/ottelu`);
+    if(avgGoals >= 3.2) traits.push(`<b>Overia!!!</b>: ${avgGoals.toFixed(1)} maalia/ottelu`);
     if(avgGoals < 2.5) traits.push(`<b>Taktikko</b>: ${avgGoals.toFixed(1)} maalia/ottelu`);
-    if(rarityWins >= 2) traits.push(`<b>Yllätyshaku</b>: ${rarityWins} harvinaista osumaa`);
+    if(rarityWins >= 2) traits.push(`<b>Ball knowledge</b>: ${rarityWins} harvinaista osumaa`);
     if(info.pct >= 50) traits.push(`<b>Osumatarkkuus</b>: ${info.pct}% oikein`);
-    if(!traits.length) traits.push(`<b>Tasainen</b>: ${info.pts} pistettä, ${info.correct}/${info.played} oikein`);
+    if(!traits.length) traits.push(`<b>Tasainen suorittaja</b>: ${info.pts} pistettä, ${info.correct}/${info.played} oikein`);
     return traits.slice(0,2).join(' · ');
   }
 
