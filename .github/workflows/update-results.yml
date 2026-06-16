@@ -1,7 +1,9 @@
 name: Update football results
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Manual trigger
+  schedule:
+    - cron: '*/10 * * * *'  # Auto-update every 10 minutes
 
 permissions:
   contents: write
@@ -14,16 +16,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Fetch football data
+      - name: Fetch World Cup 2026 fixtures
         run: |
-          curl -H "X-Auth-Token: ${{ secrets.FOOTBALL_API_KEY }}" \
-          "v3.football.api-sports.io" \
-          -o results.json
+          # Fetch World Cup 2026 fixtures (League ID: 1, Season: 2026)
+          curl -X GET \
+            "https://v3.football.api-sports.io/fixtures?league=1&season=2026" \
+            -H "x-rapidapi-key: ${{ secrets.API_FOOTBALL_KEY }}" \
+            -H "x-rapidapi-host: v3.football.api-sports.io" \
+            -o results.json
 
-      - name: Commit results
+      - name: Commit and push results
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add results.json
-          git commit -m "update results" || echo "no changes"
+          git commit -m "Update results $(date -u '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push
