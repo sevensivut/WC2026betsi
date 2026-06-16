@@ -17,7 +17,7 @@ jobs:
       - name: Fetch football data
         run: |
           curl -H "X-Auth-Token: ${{ secrets.FOOTBALL_API_KEY }}" \
-          "https://api.football-data.org/v4/matches" \
+          "v3.football.api-sports.io" \
           -o results.json
 
       - name: Commit results
