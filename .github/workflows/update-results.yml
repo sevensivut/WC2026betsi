@@ -45,7 +45,7 @@ jobs:
       - name: Commit and push results
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config.user.email "actions@github.com"
           git add results.json raw_data.json
           git commit -m "Update results $(date -u '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
           git push
