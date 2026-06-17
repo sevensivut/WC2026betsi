@@ -1496,7 +1496,7 @@ function applyResults(games){
 }
 
 /* ============================================================
-   SYNC — fetches ./results.json committed by GitHub Actions
+   SYNC — fetches ./results.json (updated by GitHub Actions)
    No API keys needed in the browser. Ever.
    ============================================================ */
 let syncTimer=null, lastSyncMs=0, liveMatchCount=0;
@@ -1508,22 +1508,32 @@ async function syncResults(silent=false){
     // Cache-busting param so browsers don't serve a stale copy
     const r = await fetch('./results.json?_='+Date.now());
     if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const data = await r.json();
+    const rawData = await r.json();
+    
+    // Process Bzzoiro data (if it's from Bzzoiro) or use as-is
+    // Check if it's Bzzoiro format (has 'results' array) or already processed
+    let processedData;
+    if (rawData.results && Array.isArray(rawData.results)) {
+      // It's raw Bzzoiro data - process it
+      processedData = processBzzoiroData(rawData);
+    } else {
+      // It's already in our expected format
+      processedData = rawData;
+    }
 
-    const {updated, live} = applyResults(data.games || []);
+    const {updated, live} = applyResults(processedData.games || []);
     liveMatchCount = live;
-    lastSyncMs = new Date(data.updated||Date.now()).getTime();
+    lastSyncMs = new Date(processedData.updated || Date.now()).getTime();
 
     Object.keys(PANELS).forEach(k=>delete PANELS[k]);
     document.querySelectorAll('.tabpanel').forEach(p=>{ p.innerHTML=''; });
     initHero();
     buildPanel(activeTab);
 
-    setSyncState(live>0 ? 'live' : 'ok', data.source||'');
+    setSyncState(live>0 ? 'live' : 'ok', processedData.source || 'Bzzoiro');
 
     clearTimeout(syncTimer);
-    // If matches are live, re-fetch every 90 s (Actions runs every 10 min,
-    // so fetching more often just gets the same file — but catches edge cases)
+    // If matches are live, re-fetch every 90 s
     if(live>0) syncTimer = setTimeout(()=>syncResults(true), 90000);
 
     if(!silent){
@@ -1551,7 +1561,7 @@ function setSyncState(state, source=''){
     state==='live' ? `${liveMatchCount} ottelu käynnissä · päivittyy 90 s välein` :
     state==='error'? 'Tarkista GitHub Actions -loki' : '';
 }
-
+   
 /* ============================================================
    TOPBAR WIRING  (no settings gear needed anymore)
    ============================================================ */
