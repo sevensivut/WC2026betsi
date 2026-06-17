@@ -19,12 +19,10 @@ jobs:
         env:
           BZZOIRO_KEY: ${{ secrets.BZZOIRO_API_KEY }}
         run: |
-          # Fetch all World Cup matches
           curl -H "Authorization: Token $BZZOIRO_KEY" \
             "https://sports.bzzoiro.com/api/v2/events/?date_from=2026-06-11&date_to=2026-06-28&league_id=27" \
             -o raw_data.json
           
-          # Process with jq and save to results.json
           cat raw_data.json | jq '{
             updated: (now | strftime("%Y-%m-%dT%H:%M:%S")),
             source: "Bzzoiro Sports Data",
@@ -45,7 +43,7 @@ jobs:
       - name: Commit and push results
         run: |
           git config user.name "github-actions"
-          git config.user.email "actions@github.com"
+          git config user.email "actions@github.com"
           git add results.json raw_data.json
           git commit -m "Update results $(date -u '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
           git push
