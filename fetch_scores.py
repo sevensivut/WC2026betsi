@@ -3,6 +3,7 @@
 fetch_scores.py  —  Bzzoiro Sports Data fetcher for WC2026 veikkaus
 Paginates through ALL results so no matches are missed.
 Falls back gracefully if the key is missing or the API is down.
+Includes "Smart Fetch" logic to minimize API calls.
 """
 
 import json, os, sys, time, urllib.request, urllib.error
@@ -10,7 +11,8 @@ from datetime import datetime, timezone
 
 API_KEY  = os.environ.get("BZZOIRO_KEY", "").strip()
 BASE_URL = "https://sports.bzzoiro.com/api/v2/events/"
-PARAMS   = "date_from=2026-06-11&date_to=2026-06-28&league_id=27&limit=100"
+# FIX: Use season_id=188 to bypass the API's 7-day date window limit!
+PARAMS   = "season_id=188&limit=200" 
 
 # ---------------------------------------------------------------------------
 # Team-name normalisation  →  match the names used in the predictions CSV
@@ -26,7 +28,6 @@ ALIASES = {
     "bosnia & herzegovina": "Bosnia and Herzegovina",
     # Other API variants
     "turkey":               "Türkiye",
-    "turkey":               "Türkiye",
     "republic of korea":    "Korea Republic",
     "united states of america": "United States",
     "democratic republic of the congo": "Congo DR",
@@ -40,6 +41,53 @@ def norm(name: str) -> str:
     if not name:
         return ""
     return ALIASES.get(name.strip().lower(), name.strip())
+
+# ---------------------------------------------------------------------------
+# Smart Fetch Logic
+# ---------------------------------------------------------------------------
+def is_fetch_needed(file_path="results.json"):
+    if not os.path.exists(file_path):
+        return True
+
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return True
+
+    games = data.get("games", [])
+    if not games:
+        return True
+
+    now = datetime.now(timezone.utc)
+    
+    for g in games:
+        event_date_str = g.get("event_date")
+        if not event_date_str:
+            continue
+            
+        try:
+            # Parse ISO 8601 date
+            match_time = datetime.fromisoformat(event_date_str.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+            
+        diff_minutes = (match_time - now).total_seconds() / 60
+        
+        # 1. Match starts in the next 60 minutes
+        if 0 < diff_minutes <= 60:
+            return True
+            
+        # 2. Match started recently (within last 4 hours to cover ET/Penalties and final API updates)
+        hours_since_start = -diff_minutes / 60
+        if 0 <= hours_since_start <= 4.0:
+            return True
+            
+        # 3. Match is currently LIVE
+        if g.get("status") == "LIVE":
+            return True
+            
+    return False
 
 # ---------------------------------------------------------------------------
 # Paginated fetch
@@ -102,6 +150,7 @@ def normalise_match(r):
         "awayScore": int(away_score) if away_score is not None else None,
         "status":    status,
         "date":      (r.get("event_date") or "")[:10],
+        "event_date": r.get("event_date", ""),  # Added full timestamp for Smart Fetch logic
         "group":     r.get("group_name"),
     }
 
@@ -113,7 +162,13 @@ def main():
         print("❌  BZZOIRO_KEY secret is not set — nothing to fetch.", file=sys.stderr)
         sys.exit(0)   # exit 0 so the workflow doesn't mark the run as failed
 
-    print(f"Fetching WC2026 matches from Bzzoiro…")
+    # --- SMART FETCH CHECK ---
+    if not is_fetch_needed():
+        print("💤 No active or upcoming matches in the immediate window. Skipping API call to be courteous.")
+        sys.exit(0)
+        
+    print(f"⚽ Match window active. Fetching WC2026 matches from Bzzoiro…")
+    
     try:
         raw = fetch_all_matches()
     except Exception as e:
