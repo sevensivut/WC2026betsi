@@ -1397,24 +1397,31 @@ $id('importFile').addEventListener('change', function(){
    Maps API variants → our CSV names
    ============================================================ */
 const TEAM_ALIASES = {
-  // worldcup26.ir / football-data.org variants
+  // Bzzoiro-specific names (priority)
+  'south korea':'Korea Republic',
+  'usa':'United States',
+  "cote d'ivoire":'Ivory Coast',
+  "côte d'ivoire":'Ivory Coast',
+  'cabo verde':'Cape Verde',
+  'dr congo':'Congo DR',
+  'bosnia & herzegovina':'Bosnia and Herzegovina',
+  // Other API variants
   'turkey':'Türkiye','türkiye':'Türkiye',
-  'south korea':'Korea Republic','korea republic':'Korea Republic','republic of korea':'Korea Republic',
-  'usa':'United States','united states of america':'United States','us':'United States',
-  'ivory coast':'Ivory Coast',"côte d'ivoire":'Ivory Coast','cote d\'ivoire':'Ivory Coast',
-  'dr congo':'Congo DR','democratic republic of the congo':'Congo DR','congo dr':'Congo DR','congo, dr':'Congo DR',
-  'bosnia-herzegovina':'Bosnia and Herzegovina','bosnia & herzegovina':'Bosnia and Herzegovina','bosnia':'Bosnia and Herzegovina',
+  'korea republic':'Korea Republic','republic of korea':'Korea Republic',
+  'united states of america':'United States','us':'United States',
+  'ivory coast':'Ivory Coast',
+  'democratic republic of the congo':'Congo DR','congo dr':'Congo DR','congo, dr':'Congo DR',
+  'bosnia-herzegovina':'Bosnia and Herzegovina','bosnia':'Bosnia and Herzegovina',
   'curacao':'Curaçao','curaçao':'Curaçao',
   'czech republic':'Czechia','czechia':'Czechia',
-  'cape verde':'Cape Verde','cabo verde':'Cape Verde',
+  'cape verde':'Cape Verde',
   'england':'England','scotland':'Scotland',
   'saudi arabia':'Saudi Arabia',
   'new zealand':'New Zealand',
   'south africa':'South Africa',
-  'korea republic':'Korea Republic',
   'iran':'Iran','ir iran':'Iran',
   'uzbekistan':'Uzbekistan',
-};
+}
 
 function normTeam(raw){
   if(!raw) return '';
