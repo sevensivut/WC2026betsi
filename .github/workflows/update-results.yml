@@ -2,7 +2,7 @@ name: Update World Cup Results
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # every 5 minutes
+    - cron: '*/15 * * * *'
   workflow_dispatch:         # manual trigger from GitHub UI
 
 permissions:
