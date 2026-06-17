@@ -3,7 +3,7 @@ name: Update World Cup Results
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: write
@@ -15,73 +15,32 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       
-      - name: Fetch World Cup data from Bzzoiro
+      - name: Fetch and process World Cup data
         env:
           BZZOIRO_KEY: ${{ secrets.BZZOIRO_API_KEY }}
         run: |
-          # Fetch matches from tournament start to today + 1 day
-          # This ensures we get all played matches
+          # Fetch all World Cup matches
           curl -H "Authorization: Token $BZZOIRO_KEY" \
             "https://sports.bzzoiro.com/api/v2/events/?date_from=2026-06-11&date_to=2026-06-28&league_id=27" \
             -o raw_data.json
           
-          python3 << 'EOF'
-          import json
-          from datetime import datetime
+          # Process with jq and save to results.json
+          cat raw_data.json | jq '{
+            updated: (now | strftime("%Y-%m-%dT%H:%M:%S")),
+            source: "Bzzoiro Sports Data",
+            games: [.results[] | select(.home_score != null) | {
+              home: .home_team,
+              away: .away_team,
+              homeScore: .home_score,
+              awayScore: .away_score,
+              status: (.status | if . == "ft" or . == "finished" then "FT" elif . == "inprogress" or . == "live" then "LIVE" else . end),
+              group: .group_name,
+              round: .round_number,
+              date: .event_date
+            }]
+          }' > results.json
           
-          with open('raw_data.json', 'r') as f:
-              data = json.load(f)
-          
-          games = []
-          for match in data.get('results', []):
-              home_score = match.get('home_score')
-              away_score = match.get('away_score')
-              
-              # Include matches that have scores (played or live)
-              if home_score is not None and away_score is not None:
-                  status = match.get('status', 'notstarted')
-                  
-                  # Convert status to your format
-                  if status in ['ft', 'finished']:
-                      status_display = 'FT'
-                  elif status in ['inprogress', '1h', '2h', 'ht', 'halftime', 'live']:
-                      status_display = 'LIVE'
-                  else:
-                      status_display = status
-                  
-                  games.append({
-                      'home': match.get('home_team'),
-                      'away': match.get('away_team'),
-                      'homeScore': home_score,
-                      'awayScore': away_score,
-                      'status': status_display,
-                      'group': match.get('group_name', ''),
-                      'round': match.get('round_number', 0),
-                      'date': match.get('event_date', '')
-                  })
-          
-          output = {
-              'updated': datetime.now().isoformat(),
-              'source': 'Bzzoiro Sports Data',
-              'games': games
-          }
-          
-          with open('results.json', 'w') as f:
-              json.dump(output, f, indent=2)
-          
-          print(f"✅ Updated {len(games)} matches with scores")
-          
-          # Show which matches have scores
-          if games:
-              print("\n📊 Matches with scores:")
-              for g in games[:10]:
-                  print(f"  {g['home']} {g['homeScore']}-{g['awayScore']} {g['away']} ({g['status']})")
-              if len(games) > 10:
-                  print(f"  ... and {len(games) - 10} more")
-          else:
-              print("\n⚠️ No matches with scores found yet.")
-              print("Matches will appear as they finish.")
-          EOF
+          echo "✅ Updated $(cat results.json | jq '.games | length') matches with scores"
       
       - name: Commit and push results
         run: |
