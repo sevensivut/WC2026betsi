@@ -1474,21 +1474,29 @@ function recalcMatch(m){
 }
 
 /* ============================================================
-   APPLY FETCHED RESULTS  (shared by JSON fetch + CSV import)
+   APPLY FETCHED RESULTS (updated for Bzzoiro)
    ============================================================ */
 function applyResults(games){
   let updated=0, live=0;
   for(const g of games){
     const m = findMatch(g.home, g.away);
     if(!m) continue;
-    const st = (g.status||'').toUpperCase();
-    if(['IN_PLAY','LIVE','1H','HT','2H','ET','PAUSED'].includes(st)) live++;
+    
+    const st = (g.status||'').toLowerCase();
+    if(['inprogress','halftime','1h','2h','ht','et','live'].includes(st)) live++;
+    
     if(g.homeScore===null || g.homeScore===undefined) continue;
-    const homeFlip = m.home !== normTeam(g.home);
+    
+    // Check if home/away might be flipped
+    const homeFlip = m.home !== g.home;
     const a = homeFlip ? g.awayScore : g.homeScore;
     const b = homeFlip ? g.homeScore : g.awayScore;
+    
     if(m.played && m.actualA===a && m.actualB===b) continue;
-    m.played=true; m.actualA=a; m.actualB=b;
+    
+    m.played=true; 
+    m.actualA=a; 
+    m.actualB=b;
     recalcMatch(m);
     updated++;
   }
