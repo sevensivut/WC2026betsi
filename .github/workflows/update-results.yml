@@ -3,7 +3,7 @@ name: Update World Cup Results
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/5 * * * *'  # Every 5 minutes
 
 permissions:
   contents: write
@@ -19,8 +19,10 @@ jobs:
         env:
           BZZOIRO_KEY: ${{ secrets.BZZOIRO_API_KEY }}
         run: |
+          # Fetch matches from tournament start to today + 1 day
+          # This ensures we get all played matches
           curl -H "Authorization: Token $BZZOIRO_KEY" \
-            "https://sports.bzzoiro.com/api/v2/events/?league_id=27&season_id=188" \
+            "https://sports.bzzoiro.com/api/v2/events/?date_from=2026-06-11&date_to=2026-06-28&league_id=27" \
             -o raw_data.json
           
           python3 << 'EOF'
@@ -32,21 +34,31 @@ jobs:
           
           games = []
           for match in data.get('results', []):
-              status = match.get('status', 'notstarted')
-              if status in ['inprogress', 'halftime', 'ft', 'finished']:
-                  home_score = match.get('home_score')
-                  away_score = match.get('away_score')
+              home_score = match.get('home_score')
+              away_score = match.get('away_score')
+              
+              # Include matches that have scores (played or live)
+              if home_score is not None and away_score is not None:
+                  status = match.get('status', 'notstarted')
                   
-                  if home_score is not None and away_score is not None:
-                      games.append({
-                          'home': match.get('home_team'),
-                          'away': match.get('away_team'),
-                          'homeScore': home_score,
-                          'awayScore': away_score,
-                          'status': status,
-                          'group': match.get('group_name', ''),
-                          'round': match.get('round_number', 0)
-                      })
+                  # Convert status to your format
+                  if status in ['ft', 'finished']:
+                      status_display = 'FT'
+                  elif status in ['inprogress', '1h', '2h', 'ht', 'halftime', 'live']:
+                      status_display = 'LIVE'
+                  else:
+                      status_display = status
+                  
+                  games.append({
+                      'home': match.get('home_team'),
+                      'away': match.get('away_team'),
+                      'homeScore': home_score,
+                      'awayScore': away_score,
+                      'status': status_display,
+                      'group': match.get('group_name', ''),
+                      'round': match.get('round_number', 0),
+                      'date': match.get('event_date', '')
+                  })
           
           output = {
               'updated': datetime.now().isoformat(),
@@ -57,7 +69,18 @@ jobs:
           with open('results.json', 'w') as f:
               json.dump(output, f, indent=2)
           
-          print(f"Updated {len(games)} matches")
+          print(f"✅ Updated {len(games)} matches with scores")
+          
+          # Show which matches have scores
+          if games:
+              print("\n📊 Matches with scores:")
+              for g in games[:10]:
+                  print(f"  {g['home']} {g['homeScore']}-{g['awayScore']} {g['away']} ({g['status']})")
+              if len(games) > 10:
+                  print(f"  ... and {len(games) - 10} more")
+          else:
+              print("\n⚠️ No matches with scores found yet.")
+              print("Matches will appear as they finish.")
           EOF
       
       - name: Commit and push results
