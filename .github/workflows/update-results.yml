@@ -1,9 +1,9 @@
-name: Update football results
+name: Update World Cup Results
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/15 * * * *'  # Every 15 minutes
 
 permissions:
   contents: write
@@ -11,64 +11,66 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
-      - name: Fetch and process World Cup data
+      
+      - name: Fetch World Cup data from Bzzoiro
+        env:
+          BZZOIRO_KEY: ${{ secrets.BZZOIRO_API_KEY }}
         run: |
-          # Fetch fixtures
-          curl -X GET \
-            "https://v3.football.api-sports.io/fixtures?league=1&season=2026" \
-            -H "x-rapidapi-key: ${{ secrets.API_FOOTBALL_KEY }}" \
-            -H "x-rapidapi-host: v3.football.api-sports.io" \
-            -o fixtures.json
+          # Fetch all World Cup matches for the tournament period
+          curl -H "Authorization: Token $BZZOIRO_KEY" \
+            "https://sports.bzzoiro.com/api/v2/events/?league_id=27&season_id=188" \
+            -o raw_data.json
           
-          # Parse with Node.js or Python to match your expected format
-          # Option 1: Use Python
+          # Process the data with Python
           python3 << 'EOF'
           import json
-          import datetime
+          from datetime import datetime
           
-          # Load the API response
-          with open('fixtures.json', 'r') as f:
+          # Load raw data
+          with open('raw_data.json', 'r') as f:
               data = json.load(f)
           
+          # Process matches
           games = []
-          for fixture in data.get('response', []):
-              # Extract match data
-              home = fixture['teams']['home']['name']
-              away = fixture['teams']['away']['name']
-              home_score = fixture['goals']['home']
-              away_score = fixture['goals']['away']
-              status = fixture['fixture']['status']['short']
-              
-              # Only include played or live matches
-              if status in ['FT', '1H', '2H', 'HT', 'ET', 'PEN']:
-                  games.append({
-                      'home': home,
-                      'away': away,
-                      'homeScore': home_score if home_score is not None else 0,
-                      'awayScore': away_score if away_score is not None else 0,
-                      'status': status
-                  })
+          for match in data.get('results', []):
+              # Only include matches that have started or finished
+              status = match.get('status', 'notstarted')
+              if status in ['inprogress', 'halftime', 'ft', 'finished']:
+                  home_score = match.get('home_score')
+                  away_score = match.get('away_score')
+                  
+                  # Only include if scores are available
+                  if home_score is not None and away_score is not None:
+                      games.append({
+                          'home': match.get('home_team'),
+                          'away': match.get('away_team'),
+                          'homeScore': home_score,
+                          'awayScore': away_score,
+                          'status': status,
+                          'group': match.get('group_name', ''),
+                          'round': match.get('round_number', 0)
+                      })
           
           # Create output in your expected format
           output = {
-              'updated': datetime.datetime.now().isoformat(),
-              'source': 'API-Football.com',
+              'updated': datetime.now().isoformat(),
+              'source': 'Bzzoiro Sports Data',
               'games': games
           }
           
           with open('results.json', 'w') as f:
               json.dump(output, f, indent=2)
+          
+          print(f"✅ Updated {len(games)} matches")
           EOF
-
+      
       - name: Commit and push results
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add results.json
-          git commit -m "Update results $(date -u '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git commit -m "Update results $(date -u '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
           git push
