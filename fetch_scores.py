@@ -23,6 +23,7 @@ ALIASES = {
     "Côte d'Ivoire":        "Ivory Coast",
     "DR Congo":             "Congo DR",
     "Czechia":              "Czech Republic",
+    "Czech Republic":       "Czech Republic",
     "USA":                  "United States",
     "Türkiye":              "Turkey",      # data.json uses "Turkey" from original CSV mapping
     "Curaçao":              "Curaçao",     # keep accented form — matches data.json
