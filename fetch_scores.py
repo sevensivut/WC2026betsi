@@ -32,12 +32,14 @@ ALIASES = {
 STATUS = {
     "ft":          "FT",
     "finished":    "FT",
+    "aet":         "FT",      # After extra time (still counts as finished result)
+    "penalties":   "FT",      
     "inprogress":  "LIVE",
-    "live":        "LIVE",
-    "1h":          "LIVE",
+    "1st_half":    "LIVE",    # ← ADD THESE
+    "2nd_half":    "LIVE",    # ← ADD THESE
+    "extratime":   "LIVE",    # ← ADD THESE
+    "halftime":    "HT",      # ← Map correctly
     "ht":          "HT",
-    "2h":          "LIVE",
-    "et":          "LIVE",
     "notstarted":  "NS",
     "postponed":   "PST",
     "cancelled":   "CANC",
