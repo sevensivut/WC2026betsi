@@ -1,1 +1,103 @@
+Top-level keys: ['players', 'matches']
+Players: ['Santtu', 'Arian', 'Pratsku', 'Benni', 'Eelis', 'Osku', 'Pati', 'Hemmo', 'Walter', 'Aimo', 'Juska', 'Severi', 'Robin']
+Match count: 72
 
+Sample match:
+{
+  "id": 1,
+  "date": "2026-06-11",
+  "group": "A",
+  "home": "Mexico",
+  "away": "South Africa",
+  "homeFlag": "🇲🇽",
+  "awayFlag": "🇿🇦",
+  "actualA": 2,
+  "actualB": 0,
+  "result": "Mexico",
+  "played": true,
+  "oikein": 12,
+  "rarity": 0,
+  "preds": {
+    "Santtu": {
+      "a": 2,
+      "b": 1,
+      "pts": 2,
+      "exact": false
+    },
+    "Arian": {
+      "a": 2,
+      "b": 1,
+      "pts": 2,
+      "exact": false
+    },
+    "Pratsku": {
+      "a": 3,
+      "b": 0,
+      "pts": 2,
+      "exact": false
+    },
+    "Benni": {
+      "a": 2,
+      "b": 0,
+      "pts": 4,
+      "exact": true
+    },
+    "Eelis": {
+      "a": 1,
+      "b": 0,
+      "pts": 2,
+      "exact": false
+    },
+    "Osku": {
+      "a": 2,
+      "b": 0,
+      "pts": 4,
+      "exact": true
+    },
+    "Pati": {
+      "a": 2,
+      "b": 0,
+      "pts": 4,
+      "exact": true
+    },
+    "Hemmo": {
+      "a": 1,
+      "b": 2,
+      "pts": 0,
+      "exact": false
+    },
+    "Walter": {
+      "a": 3,
+      "b": 1,
+      "pts": 2,
+      "exact": false
+    },
+    "Aimo": {
+      "a": 2,
+      "b": 0,
+      "pts": 4,
+      "exact": true
+    },
+    "Juska": {
+      "a": 2,
+      "b": 1,
+      "pts": 2,
+      "exact": false
+    },
+    "Severi": {
+      "a": 2,
+      "b": 1,
+      "pts": 2,
+      "exact": false
+    },
+    "Robin": {
+      "a": 2,
+      "b": 0,
+      "pts": 4,
+      "exact": true
+    }
+  }
+}
+Done
+
+You are out of free messages until 8:10 PM
