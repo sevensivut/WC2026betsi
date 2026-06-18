@@ -95,7 +95,6 @@ function normProb(v) {
   if (v == null) return 0;
   const n = Number(v);
   if (isNaN(n)) return 0;
-  // If value > 1, assume it's already a percentage
   return n > 1 ? Math.round(n) : Math.round(n * 100);
 }
 
