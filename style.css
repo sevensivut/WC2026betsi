@@ -337,12 +337,17 @@ main { padding: 28px 0 80px; min-height: 50vh; }
 
 /* Prediction confidence bar */
 .pred-bar {
-  display: flex; height: 3px; border-radius: 99px; overflow: hidden;
-  margin-top: 4px; flex-shrink: 0; width: 60px;
+  display: inline-flex;       /* ✅ Was block/div, now inline-flex */
+  width: 60px;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.08);
 }
-.pred-bar .p1 { background: var(--teal); }
-.pred-bar .px { background: var(--amber); }
-.pred-bar .p2 { background: var(--coral); }
+
+.pred-bar .p1 { background: #4CAF50; height: 100%; }
+.pred-bar .px { background: #FFC107; height: 100%; }
+.pred-bar .p2 { background: #F44336; height: 100%; }
 
 /* Prediction grid (expanded) */
 .pred-grid {
@@ -483,16 +488,3 @@ main { padding: 28px 0 80px; min-height: 50vh; }
 .ai-label {
   white-space: nowrap;
 }
-
-.pred-bar {
-  display: inline-flex;       /* ✅ Was block/div, now inline-flex */
-  width: 60px;
-  height: 6px;
-  border-radius: 3px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.08);
-}
-
-.pred-bar .p1 { background: #4CAF50; height: 100%; }
-.pred-bar .px { background: #FFC107; height: 100%; }
-.pred-bar .p2 { background: #F44336; height: 100%; }
