@@ -141,6 +141,47 @@ def fetch_predictions():
         print(f"  Predictions fetch failed (non-fatal): {e}", file=sys.stderr)
         return []
 
+POLY_URL = "https://sports.bzzoiro.com/api/v2/events/{id}/polymarket/"
+STATS_URL = "https://sports.bzzoiro.com/api/v2/events/{id}/stats/"
+
+def fetch_match_extras(bz_id):
+    """Fetch Polymarket odds + xG/xGoT for a single match."""
+    extras = {"poly": None, "xgHome": None, "xgAway": None, "xgotHome": None, "xgotAway": None}
+    if not KEY or not bz_id:
+        return extras
+    
+    headers = {"Authorization": f"Token {KEY}", "Accept": "application/json"}
+    
+    # 1. Polymarket Odds
+    try:
+        req = urllib.request.Request(POLY_URL.format(id=bz_id), headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            poly = json.loads(r.read().decode())
+            if poly.get("home"):
+                extras["poly"] = {
+                    "home": round(1 / poly["home"], 2) if poly["home"] else None,
+                    "draw": round(1 / poly["draw"], 2) if poly.get("draw") else None,
+                    "away": round(1 / poly["away"], 2) if poly["away"] else None,
+                }
+    except Exception:
+        pass
+    
+    # 2. xG / xGoT Stats
+    try:
+        req = urllib.request.Request(STATS_URL.format(id=bz_id), headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            stats = json.loads(r.read().decode())
+            home_stats = stats.get("home", {})
+            away_stats = stats.get("away", {})
+            extras["xgHome"] = home_stats.get("xg") or home_stats.get("expected_goals")
+            extras["xgAway"] = away_stats.get("xg") or away_stats.get("expected_goals")
+            extras["xgotHome"] = home_stats.get("xgot") or home_stats.get("xg_on_target")
+            extras["xgotAway"] = away_stats.get("xgot") or away_stats.get("xg_on_target")
+    except Exception:
+        pass
+    
+    return extras
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -156,6 +197,16 @@ def main():
     games = [make_game(r) for r in raw
              if len(r.get("home_team","")) > 2 and len(r.get("away_team","")) > 2]
 
+    # Fetch odds & xG for active/upcoming matches only
+    print("🔍 Fetching odds & xG for active/upcoming matches...")
+    for g in games:
+        if g["status"] in ("NS", "LIVE", "HT"):
+            extras = fetch_match_extras(g["bzId"])
+            g.update(extras)
+            time.sleep(0.2)  # Rate limit protection
+    
+    finished = [g for g in games if g["homeScore"] is not None]
+    live     = [g for g in games if g["status"] == "LIVE"]
     finished = [g for g in games if g["homeScore"] is not None]
     live     = [g for g in games if g["status"] == "LIVE"]
     ht_games = [g for g in games if g["status"] == "HT"]
