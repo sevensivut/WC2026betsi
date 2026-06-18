@@ -114,6 +114,11 @@ function applyResults() {
     m.period    = g?.period    || '';
     m.attendance= g?.attendance ?? null;
     m.liveStatus= g?.status    || null;
+    m.poly     = g?.poly     || null;   // ← ADD
+    m.xgHome   = g?.xgHome   ?? null;   // ← ADD
+    m.xgAway   = g?.xgAway   ?? null;   // ← ADD
+    m.xgotHome = g?.xgotHome ?? null;   // ← ADD
+    m.xgotAway = g?.xgotAway ?? null;   // ← ADD
 
     if (!g) continue;
 
@@ -509,6 +514,25 @@ function renderMatches(el) {
       const icon = w.temp > 30 ? '🌡️' : w.temp < 10 ? '🥶' : '⛅';
       weatherBadge = `<span class="weather-badge">${icon} ${Math.round(w.temp)}°</span>`;
     }
+     
+   // Polymarket Odds Badge (upcoming only)
+    let polyBadge = '';
+    if (!m.played && m.poly) {
+      const ph = m.poly.home ? `${m.poly.home}` : '-';
+      const pd = m.poly.draw ? `${m.poly.draw}` : '-';
+      const pa = m.poly.away ? `${m.poly.away}` : '-';
+      polyBadge = `<span class="poly-badge" title="Polymarket Decimal Odds">📈 ${ph} / ${pd} / ${pa}</span>`;
+    }
+
+    // xG / xGoT Badge (live or finished)
+    let xgBadge = '';
+    if (m.played && (m.xgHome !== null || m.xgotHome !== null)) {
+      const xgStr = m.xgHome !== null && m.xgAway !== null 
+        ? `xG ${Number(m.xgHome).toFixed(1)}–${Number(m.xgAway).toFixed(1)}` : '';
+      const xgotStr = m.xgotHome !== null && m.xgotAway !== null 
+        ? `xGoT ${Number(m.xgotHome).toFixed(1)}–${Number(m.xgotAway).toFixed(1)}` : '';
+      xgBadge = `<span class="xg-badge">${xgStr}${xgStr && xgotStr ? ' · ' : ''}${xgotStr}</span>`;
+    }
 
     // AI prediction bar (upcoming only)
     let aiBadge = '';
@@ -559,7 +583,7 @@ function renderMatches(el) {
           <span class="vs">vs</span>
           <div class="tm away">${logoImg(aId, m.awayFlag)} <span>${m.away}</span></div>
         </div>
-        ${scoreBadge}${minBadge}${htBadge}${htBadge?'':weatherBadge}${aiBadge}
+       ${scoreBadge}${minBadge}${htBadge}${htBadge?'':weatherBadge}${aiBadge}${polyBadge}${xgBadge}
         <span class="chev">▾</span>
       </summary>
       ${interimHtml}
