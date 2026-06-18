@@ -678,11 +678,11 @@ function renderAwards(el) {
   const awards = [
     { icon:'🏆', cat:'Johtaja', who:st[0].name, val:`${st[0].pts}p · ${st[0].exacts} tarkkaa`, desc:`${st[0].name} johtaa ${st[0].pts} pisteellä. Osuvuus ${st[0].pct}%.` },
     { icon:'🎯', cat:'Tarkka-ampuja', ...best(exactArr,'v'), desc:`Eniten täsmällisiä maalimääräveikkauksia pelatuissa otteluissa.` },
-    { icon:'🔥', cat:'Tulisarja',     ...best(streakArr,'v'), desc:`Pisin peräkkäinen oikean veikkaussarjan putki.` },
-    { icon:'💎', cat:'Yllätyshaukka', ...best(rarityArr,'v'), desc:`Eniten pisteitä otteluista joissa ≤4/13 sai oikein.` },
-    { icon:'🤦', cat:'Täysin väärässä', ...best(zeroArr,'v'), desc:`Eniten nollapistematsia — rohkea tai epäonninen.` },
-    { icon:'⚽', cat:'Maalifanaatikko', ...best(goalArr,'v'), desc:`Ennakoi eniten maaleja kaikissa 72 ottelussa.` },
-    { icon:'🧱', cat:'Puolustusmestari', ...best(goalArr,'v',false), desc:`Ennakoi vähiten maaleja — uskoo tiukkaan torjuntapeliin.` },
+    { icon:'🔥', cat:'Striikki',     ...best(streakArr,'v'), desc:`Pisin peräkkäinen oikean veikkaussarjan putki.` },
+    { icon:'💎', cat:'Ball knower', ...best(rarityArr,'v'), desc:`Eniten pisteitä otteluista joissa ≤4/13 sai oikein.` },
+    { icon:'🤦', cat:'What is he cooking?', ...best(zeroArr,'v'), desc:`Eniten nollapistematsia — rohkea tai epäonninen.` },
+    { icon:'⚽', cat:'Overikingi', ...best(goalArr,'v'), desc:`Ennakoi eniten maaleja kaikissa 72 ottelussa.` },
+    { icon:'👴', cat:'Tasuripappa', ...best(goalArr,'v',false), desc:`Ennakoi vähiten maaleja — uskoo tiukkaan torjuntapeliin.` },
     { icon:'🪨', cat:'Häntäpää', who:st[st.length-1].name, val:`${st[st.length-1].pts}p`, desc:`Viimeistä sijaa pitää ${st[st.length-1].name}. Parannettavaa on.` },
   ];
 
