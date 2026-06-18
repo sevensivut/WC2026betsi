@@ -18,16 +18,23 @@ OUT      = "results.json"
 # Team name normalisation  (Bzzoiro → names used in data.json)
 # ---------------------------------------------------------------------------
 ALIASES = {
-    "Bosnia & Herzegovina": "Bosnia and Herzegovina",
-    "Cabo Verde":           "Cape Verde",
-    "Côte d'Ivoire":        "Ivory Coast",
-    "DR Congo":             "Congo DR",
-    "Czechia":              "Czech Republic",
-    "Czech Republic":       "Czech Republic",
-    "USA":                  "United States",
-    "Türkiye":              "Turkey",      # data.json uses "Turkey" from original CSV mapping
-    "Curaçao":              "Curaçao",     # keep accented form — matches data.json
-    "South Korea":          "Korea Republic",
+  "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+  "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+  "Cabo Verde":           "Cape Verde",
+  "Cape Verde":           "Cape Verde",
+  "Côte d'Ivoire":        "Ivory Coast",
+  "Ivory Coast":          "Ivory Coast",
+  "DR Congo":             "Congo DR",
+  "Congo DR":             "Congo DR",
+  "Czechia":              "Czech Republic",
+  "Czech Republic":       "Czech Republic",
+  "USA":                  "United States",
+  "United States":        "United States",
+  "Türkiye":              "Turkey",
+  "Turkey":               "Turkey",
+  "Curaçao":              "Curaçao",
+  "South Korea":          "Korea Republic",
+  "Korea Republic":       "Korea Republic",
 }
 
 STATUS = {
