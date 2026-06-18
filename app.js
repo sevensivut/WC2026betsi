@@ -65,18 +65,28 @@ function rarityBonus(nCorrect) {
 
 // ── Normalise team names ─────────────────────────────────────
 const ALIASES = {
-  'Bosnia & Herzegovina': 'Bosnia and Herzegovina',
-  'Cabo Verde': 'Cape Verde',
-  "Côte d'Ivoire": 'Ivory Coast',
-  'DR Congo': 'Congo DR',
-  'Czechia': 'Czech Republic',
-  'Czech Republic': 'Czech Republic',
-  'USA': 'United States',
-  'Türkiye': 'Turkey',
-  'South Korea': 'Korea Republic',
+  "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+  "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+  "Cabo Verde":           "Cape Verde",
+  "Cape Verde":           "Cape Verde",
+  "Côte d'Ivoire":        "Ivory Coast",
+  "Ivory Coast":          "Ivory Coast",
+  "DR Congo":             "Congo DR",
+  "Congo DR":             "Congo DR",
+  "Czechia":              "Czech Republic",
+  "Czech Republic":       "Czech Republic",
+  "USA":                  "United States",
+  "United States":        "United States",
+  "Türkiye":              "Turkey",
+  "Turkey":               "Turkey",
+  "Curaçao":              "Curaçao",
+  "South Korea":          "Korea Republic",
+  "Korea Republic":       "Korea Republic",
 };
 
-function normTeam(t) { return t ? (ALIASES[t] || t) : ''; }
+function normTeam(t) { 
+  return t ? (ALIASES[t.trim()] || t.trim()) : ''; 
+}
 
 // ── Apply live results + recalculate points ──────────────────
 function applyResults() {
@@ -92,8 +102,12 @@ function applyResults() {
   }
 
   for (const m of DATA.matches) {
-    const g = PRED_MAP[`${m.home}|${m.away}`] ||
-              PRED_MAP[`${m.away}|${m.home}`];
+    // Normalize BOTH data.json names AND results.json names for lookup
+    const mh = normTeam(m.home);
+    const ma = normTeam(m.away);
+    
+    const g = PRED_MAP[`${mh}|${ma}`] ||
+              PRED_MAP[`${ma}|${mh}`];
 
     // Attach enriched fields directly from game object
     m.ai         = g?.ai       || null;
