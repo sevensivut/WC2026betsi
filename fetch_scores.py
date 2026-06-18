@@ -32,13 +32,15 @@ ALIASES = {
 STATUS = {
     "ft":          "FT",
     "finished":    "FT",
-    "aet":         "FT",      # After extra time (still counts as finished result)
-    "penalties":   "FT",      
+    "aet":         "FT",
+    "penalties":   "FT",
     "inprogress":  "LIVE",
-    "1st_half":    "LIVE",    # ← ADD THESE
-    "2nd_half":    "LIVE",    # ← ADD THESE
-    "extratime":   "LIVE",    # ← ADD THESE
-    "halftime":    "HT",      # ← Map correctly
+    "live":        "LIVE",
+    "1st_half":    "LIVE",
+    "2nd_half":    "LIVE",
+    "extratime":   "LIVE",
+    "extra_time":  "LIVE",
+    "halftime":    "HT",
     "ht":          "HT",
     "notstarted":  "NS",
     "postponed":   "PST",
@@ -76,8 +78,12 @@ def get_all(url):
 def make_game(r):
     hs  = r.get("home_score")
     as_ = r.get("away_score")
-    raw_status = (r.get("status") or "").lower()
-    status = STATUS.get(raw_status, raw_status.upper())
+    raw_status = (r.get("status") or "").strip().lower()  # ← .strip() added!
+    status = STATUS.get(raw_status, raw_status.upper() if raw_status else "NS")
+    
+    # Safety net: if scores exist but status says NS, force FT
+    if hs is not None and as_ is not None and status == "NS":
+        status = "FT"
 
     weather = r.get("weather") or {}
 
@@ -141,8 +147,9 @@ def fetch_predictions():
         print(f"  Predictions fetch failed (non-fatal): {e}", file=sys.stderr)
         return []
 
-POLY_URL = "https://sports.bzzoiro.com/api/v2/events/{id}/polymarket/"
-STATS_URL = "https://sports.bzzoiro.com/api/v2/events/{id}/stats/"
+POLY_URL        = "https://sports.bzzoiro.com/api/v2/events/{id}/polymarket/"
+STATS_URL       = "https://sports.bzzoiro.com/api/v2/events/{id}/stats/"
+PRED_DETAIL_URL = "https://sports.bzzoiro.com/api/v2/events/{id}/prediction/"
 
 def fetch_match_extras(bz_id):
     """Fetch Polymarket odds + xG/xGoT for a single match."""
@@ -179,6 +186,24 @@ def fetch_match_extras(bz_id):
             extras["xgotAway"] = away_stats.get("xgot") or away_stats.get("xg_on_target")
     except Exception:
         pass
+
+    # 3. Per-event AI Prediction (v2)
+    try:
+        req = urllib.request.Request(PRED_DETAIL_URL.format(id=bz_id), headers=headers)
+        with urllib.request.urlopen(req, timeout=8) as r:
+            pred = json.loads(r.read().decode())
+        mr = pred.get("markets", {}).get("match_result", {})
+        eg = pred.get("markets", {}).get("expected_goals", {})
+        extras["ai"] = {
+            "prob1": mr.get("prob_home"),
+            "probX": mr.get("prob_draw"),
+            "prob2": mr.get("prob_away"),
+            "xgHome": eg.get("home"),
+            "xgAway": eg.get("away"),
+            "confidence": pred.get("model", {}).get("confidence"),
+        }
+    except Exception:
+        pass
     
     return extras
 
@@ -204,16 +229,12 @@ def main():
             extras = fetch_match_extras(g["bzId"])
             g.update(extras)
             time.sleep(0.2)  # Rate limit protection
-    
-    finished = [g for g in games if g["homeScore"] is not None]
-    live     = [g for g in games if g["status"] == "LIVE"]
+
     finished = [g for g in games if g["homeScore"] is not None]
     live     = [g for g in games if g["status"] == "LIVE"]
     ht_games = [g for g in games if g["status"] == "HT"]
 
     print(f"\n📊 {len(finished)} finished | {len(live)} live | {len(ht_games)} HT | {len(games)} total")
-
-    predictions = fetch_predictions()
 
     out = {
         "updated":       datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -221,7 +242,6 @@ def main():
         "liveCount":     len(live) + len(ht_games),
         "finishedCount": len(finished),
         "games":         games,
-        "predictions":   predictions,
     }
 
     with open(OUT, "w", encoding="utf-8") as f:
