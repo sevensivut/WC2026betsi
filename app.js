@@ -529,13 +529,17 @@ function renderMatches(el) {
 
     // AI prediction bar (upcoming only)
     let aiBadge = '';
-     if (!m.played && m.ai?.prob1) {
-        const p1 = Math.round(m.ai.prob1),
-              px = Math.round(m.ai.probX || 0),
-              p2 = Math.round(m.ai.prob2 || 0);
-      aiBadge = `<span title="ML: 1=${p1}% X=${px}% 2=${p2}%" style="font-family:var(--font-m);font-size:9px;color:var(--dim);flex-shrink:0">
-        ML ${p1}%
-        <div class="pred-bar"><div class="p1" style="width:${p1}%"></div><div class="px" style="width:${px}%"></div><div class="p2" style="width:${p2}%"></div></div>
+    if (!m.played && m.ai?.prob1) {
+      const p1 = Math.round(m.ai.prob1);
+      const px = Math.round(m.ai.probX || 0);
+      const p2 = Math.round(m.ai.prob2 || 0);
+      aiBadge = `<span class="ai-badge" title="ML: 1=${p1}% X=${px}% 2=${p2}%">
+        <span class="ai-label">ML ${p1}%</span>
+        <span class="pred-bar">
+          <span class="p1" style="width:${p1}%"></span>
+          <span class="px" style="width:${px}%"></span>
+          <span class="p2" style="width:${p2}%"></span>
+        </span>
       </span>`;
     }
 
