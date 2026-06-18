@@ -1,8 +1,3 @@
-Top-level keys: ['players', 'matches']
-Players: ['Santtu', 'Arian', 'Pratsku', 'Benni', 'Eelis', 'Osku', 'Pati', 'Hemmo', 'Walter', 'Aimo', 'Juska', 'Severi', 'Robin']
-Match count: 72
-
-Sample match:
 {
   "id": 1,
   "date": "2026-06-11",
@@ -98,6 +93,3 @@ Sample match:
     }
   }
 }
-Done
-
-You are out of free messages until 8:10 PM
