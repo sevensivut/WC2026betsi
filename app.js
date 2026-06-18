@@ -63,29 +63,40 @@ function rarityBonus(nCorrect) {
   return 0;
 }
 
-// ── Normalise team names ─────────────────────────────────────
+// ── Normalise team names (bidirectional + trim) ──────────────
 const ALIASES = {
-  "Bosnia & Herzegovina": "Bosnia and Herzegovina",
-  "Bosnia and Herzegovina": "Bosnia and Herzegovina",
-  "Cabo Verde":           "Cape Verde",
-  "Cape Verde":           "Cape Verde",
-  "Côte d'Ivoire":        "Ivory Coast",
-  "Ivory Coast":          "Ivory Coast",
-  "DR Congo":             "Congo DR",
-  "Congo DR":             "Congo DR",
-  "Czechia":              "Czech Republic",
-  "Czech Republic":       "Czech Republic",
-  "USA":                  "United States",
-  "United States":        "United States",
-  "Türkiye":              "Turkey",
-  "Turkey":               "Turkey",
-  "Curaçao":              "Curaçao",
-  "South Korea":          "Korea Republic",
-  "Korea Republic":       "Korea Republic",
+  'Bosnia & Herzegovina': 'Bosnia and Herzegovina',
+  'Bosnia and Herzegovina': 'Bosnia and Herzegovina',
+  'Cabo Verde': 'Cape Verde',
+  'Cape Verde': 'Cape Verde',
+  "Côte d'Ivoire": 'Ivory Coast',
+  'Ivory Coast': 'Ivory Coast',
+  'DR Congo': 'Congo DR',
+  'Congo DR': 'Congo DR',
+  'Czechia': 'Czech Republic',
+  'Czech Republic': 'Czech Republic',
+  'USA': 'United States',
+  'United States': 'United States',
+  'Türkiye': 'Turkey',
+  'Turkey': 'Turkey',
+  'Curaçao': 'Curaçao',
+  'South Korea': 'Korea Republic',
+  'Korea Republic': 'Korea Republic',
 };
 
-function normTeam(t) { 
-  return t ? (ALIASES[t.trim()] || t.trim()) : ''; 
+function normTeam(t) {
+  if (!t) return '';
+  const trimmed = t.trim();
+  return ALIASES[trimmed] || trimmed;
+}
+
+// ── Safe probability normalizer (handles 0-1 or 0-100) ──────
+function normProb(v) {
+  if (v == null) return 0;
+  const n = Number(v);
+  if (isNaN(n)) return 0;
+  // If value > 1, assume it's already a percentage
+  return n > 1 ? Math.round(n) : Math.round(n * 100);
 }
 
 // ── Apply live results + recalculate points ──────────────────
@@ -102,12 +113,9 @@ function applyResults() {
   }
 
   for (const m of DATA.matches) {
-    // Normalize BOTH data.json names AND results.json names for lookup
     const mh = normTeam(m.home);
     const ma = normTeam(m.away);
-    
-    const g = PRED_MAP[`${mh}|${ma}`] ||
-              PRED_MAP[`${ma}|${mh}`];
+    const g = PRED_MAP[`${mh}|${ma}`] || PRED_MAP[`${ma}|${mh}`];
 
     // Attach enriched fields directly from game object
     m.ai         = g?.ai       || null;
@@ -126,7 +134,7 @@ function applyResults() {
 
     if (!g) continue;
 
-    const flipped = m.home !== normTeam(g.home);
+    const flipped = mh !== normTeam(g.home);
     const a = flipped ? g.awayScore : g.homeScore;
     const b = flipped ? g.homeScore : g.awayScore;
 
@@ -541,12 +549,12 @@ function renderMatches(el) {
       xgBadge = `<span class="xg-badge">${xgStr}${xgStr && xgotStr ? ' · ' : ''}${xgotStr}</span>`;
     }
 
-    // AI prediction bar (upcoming only)
+    // AI prediction bar (upcoming only) — safe prob normalization
     let aiBadge = '';
-    if (!m.played && m.ai?.prob1) {
-      const p1 = Math.round(m.ai.prob1);
-      const px = Math.round(m.ai.probX || 0);
-      const p2 = Math.round(m.ai.prob2 || 0);
+    if (!m.played && m.ai?.prob1 != null) {
+      const p1 = normProb(m.ai.prob1);
+      const px = normProb(m.ai.probX);
+      const p2 = normProb(m.ai.prob2);
       aiBadge = `<span class="ai-badge" title="ML: 1=${p1}% X=${px}% 2=${p2}%">
         <span class="ai-label">ML ${p1}%</span>
         <span class="pred-bar">
