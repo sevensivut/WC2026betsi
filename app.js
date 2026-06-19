@@ -59,7 +59,6 @@ function rarityBonus(nCorrect) {
 
 // ── Normalise Bzzoiro team names → data.json names ───────────
 const ALIASES = {
-ALIASES = {
   "Bosnia & Herzegovina": "Bosnia and Herzegovina",
   "Bosnia and Herzegovina": "Bosnia and Herzegovina",
   "Cabo Verde":           "Cape Verde",
@@ -76,8 +75,9 @@ ALIASES = {
   "Turkey":               "Turkey",
   "Curaçao":              "Curaçao",
   "South Korea":          "Korea Republic",
-  "Korea Republic":       "Korea Republic",
-}
+  "Korea Republic":       "Korea Republic"
+};
+
 function normTeam(t) { return t ? (ALIASES[t] || t) : ''; }
 
 // ── Match lookup ─────────────────────────────────────────────
