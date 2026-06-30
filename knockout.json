@@ -1,0 +1,2575 @@
+{
+  "rounds": [
+    {
+      "id": "R32",
+      "label": "Round of 32",
+      "matches": [
+        {
+          "id": 73,
+          "home": "South Africa",
+          "homeFlag": "🇿🇦",
+          "away": "Canada",
+          "awayFlag": "🇨🇦",
+          "played": true,
+          "actualA": 0,
+          "actualB": 1,
+          "winner": "Canada",
+          "oikein": 11,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Arian": {
+              "a": 0,
+              "b": 3,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 0,
+              "b": 1,
+              "winner": "Canada",
+              "pts": 4,
+              "exact": true
+            },
+            "Benni": {
+              "a": 1,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 0,
+              "b": 1,
+              "winner": "Canada",
+              "pts": 4,
+              "exact": true
+            },
+            "Osku": {
+              "a": 0,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 0,
+              "winner": "South Africa",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "South Africa",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 0,
+              "b": 1,
+              "winner": "Canada",
+              "pts": 4,
+              "exact": true
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Juska": {
+              "a": 0,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            },
+            "Robin": {
+              "a": 1,
+              "b": 2,
+              "winner": "Canada",
+              "pts": 2,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 74,
+          "home": "Germany",
+          "homeFlag": "🇩🇪",
+          "away": "Paraguay",
+          "awayFlag": "🇵🇾",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 3,
+              "b": 1,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 5,
+              "b": 1,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 4,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 0,
+              "winner": "Germany",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 75,
+          "home": "Netherlands",
+          "homeFlag": "🇳🇱",
+          "away": "Morocco",
+          "awayFlag": "🇲🇦",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 3,
+              "b": 4,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 3,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 3,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 1,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 1,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 0,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 3,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 2,
+              "b": 1,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 0,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 76,
+          "home": "Brazil",
+          "homeFlag": "🇧🇷",
+          "away": "Japan",
+          "awayFlag": "🇯🇵",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 2,
+              "winner": "Japan",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 3,
+              "b": 2,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 2,
+              "winner": "Japan",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 2,
+              "winner": "Japan",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 77,
+          "home": "France",
+          "homeFlag": "🇫🇷",
+          "away": "Sweden",
+          "awayFlag": "🇸🇪",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 4,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 4,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 4,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 4,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 3,
+              "b": 1,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 3,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 4,
+              "b": 0,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 78,
+          "home": "Ivory Coast",
+          "homeFlag": "🇨🇮",
+          "away": "Norway",
+          "awayFlag": "🇳🇴",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 1,
+              "b": 0,
+              "winner": "Ivory Coast",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Ivory Coast",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Ivory Coast",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 2,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 0,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 79,
+          "home": "Mexico",
+          "homeFlag": "🇲🇽",
+          "away": "Ecuador",
+          "awayFlag": "🇪🇨",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 0,
+              "b": 1,
+              "winner": "Ecuador",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 0,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 0,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 3,
+              "winner": "Ecuador",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 1,
+              "winner": "Mexico",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 1,
+              "winner": "Ecuador",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 1,
+              "b": 2,
+              "winner": "Ecuador",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 80,
+          "home": "England",
+          "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          "away": "Congo DR",
+          "awayFlag": "🇨🇩",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 3,
+              "b": 1,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 4,
+              "b": 1,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 4,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 3,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 3,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 3,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 3,
+              "b": 1,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 3,
+              "b": 1,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 0,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 81,
+          "home": "United States",
+          "homeFlag": "🇺🇸",
+          "away": "Bosnia and Herzegovina",
+          "awayFlag": "🇧🇦",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 3,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 4,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 4,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 2,
+              "winner": "Bosnia and Herzegovina",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 0,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 0,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 0,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 82,
+          "home": "Belgium",
+          "homeFlag": "🇧🇪",
+          "away": "Senegal",
+          "awayFlag": "🇸🇳",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 0,
+              "b": 1,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 1,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 1,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 83,
+          "home": "Portugal",
+          "homeFlag": "🇵🇹",
+          "away": "Croatia",
+          "awayFlag": "🇭🇷",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 0,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 0,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 0,
+              "b": 1,
+              "winner": "Croatia",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 0,
+              "b": 1,
+              "winner": "Croatia",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 84,
+          "home": "Spain",
+          "homeFlag": "🇪🇸",
+          "away": "Austria",
+          "awayFlag": "🇦🇹",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 1,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 3,
+              "b": 1,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 3,
+              "b": 1,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 2,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 0,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 85,
+          "home": "Switzerland",
+          "homeFlag": "🇨🇭",
+          "away": "Algeria",
+          "awayFlag": "🇩🇿",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "Algeria",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 2,
+              "winner": "Algeria",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 86,
+          "home": "Argentina",
+          "homeFlag": "🇦🇷",
+          "away": "Cape Verde",
+          "awayFlag": "🇨🇻",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 4,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 3,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 4,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 87,
+          "home": "Colombia",
+          "homeFlag": "🇨🇴",
+          "away": "Ghana",
+          "awayFlag": "🇬🇭",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 1,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 2,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 2,
+              "winner": "Ghana",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 0,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 1,
+              "b": 2,
+              "winner": "Ghana",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 88,
+          "home": "Australia",
+          "homeFlag": "🇦🇺",
+          "away": "Egypt",
+          "awayFlag": "🇪🇬",
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 1,
+              "winner": "Australia",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 0,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 3,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 0,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 2,
+              "b": 3,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 0,
+              "b": 1,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 3,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Australia",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 0,
+              "b": 1,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 0,
+              "b": 2,
+              "winner": "Egypt",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "R16",
+      "label": "Round of 16",
+      "matches": [
+        {
+          "id": 89,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 1,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 0,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 0,
+              "b": 3,
+              "winner": "France",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 90,
+          "home": "Canada",
+          "homeFlag": "🇨🇦",
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 0,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 0,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 3,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 0,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 3,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 0,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "Morocco",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 0,
+              "b": 3,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 0,
+              "b": 2,
+              "winner": "Netherlands",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 91,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 3,
+              "b": 2,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Japan",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 3,
+              "b": 2,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 2,
+              "b": 3,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 2,
+              "winner": "Norway",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 1,
+              "winner": "Brazil",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 92,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 0,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 3,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 1,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 3,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 0,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 0,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 3,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 0,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 3,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 2,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 0,
+              "b": 3,
+              "winner": "England",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 93,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 1,
+              "b": 3,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 3,
+              "b": 2,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 1,
+              "b": 3,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 2,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 0,
+              "b": 2,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 0,
+              "b": 2,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 1,
+              "b": 0,
+              "winner": "Portugal",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 3,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 2,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 3,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 1,
+              "b": 3,
+              "winner": "Spain",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 94,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 1,
+              "b": 2,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 0,
+              "b": 1,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "United States",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 0,
+              "b": 1,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 1,
+              "b": 2,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 1,
+              "b": 2,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 0,
+              "b": 1,
+              "winner": "Senegal",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 1,
+              "b": 2,
+              "winner": "Belgium",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 95,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 4,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 3,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 4,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 2,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 4,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 5,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 2,
+              "b": 1,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 3,
+              "b": 0,
+              "winner": "Argentina",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        },
+        {
+          "id": 96,
+          "home": null,
+          "homeFlag": null,
+          "away": null,
+          "awayFlag": null,
+          "played": false,
+          "actualA": null,
+          "actualB": null,
+          "winner": null,
+          "oikein": null,
+          "rarity": 0,
+          "preds": {
+            "Santtu": {
+              "a": 0,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Arian": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Pratsku": {
+              "a": 0,
+              "b": 1,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Benni": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Eelis": {
+              "a": 1,
+              "b": 3,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Osku": {
+              "a": 1,
+              "b": 2,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Pati": {
+              "a": 1,
+              "b": 3,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Hemmo": {
+              "a": 1,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Walter": {
+              "a": 2,
+              "b": 3,
+              "winner": "Colombia",
+              "pts": 0,
+              "exact": false
+            },
+            "Aimo": {
+              "a": 2,
+              "b": 1,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            },
+            "Juska": {
+              "a": 0,
+              "b": 1,
+              "winner": "Ghana",
+              "pts": 0,
+              "exact": false
+            },
+            "Severi": {
+              "a": 1,
+              "b": 0,
+              "winner": "Algeria",
+              "pts": 0,
+              "exact": false
+            },
+            "Robin": {
+              "a": 2,
+              "b": 0,
+              "winner": "Switzerland",
+              "pts": 0,
+              "exact": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "QF",
+      "label": "Puolivälierät",
+      "matches": []
+    },
+    {
+      "id": "SF",
+      "label": "Välierät",
+      "matches": []
+    },
+    {
+      "id": "F",
+      "label": "Finaali",
+      "matches": []
+    }
+  ]
+}
