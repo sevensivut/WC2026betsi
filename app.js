@@ -800,5 +800,145 @@ function showPlayerModal(playerName) {
   });
 }
 
+/* ============================================================
+   PUDOTUSPELIT (Knockout stage) — add-on module
+   Drop this in after the existing app.js panels.
+   Requires: KNOCKOUT global (loaded from knockout.json),
+             PLAYERS, AVATAR_COLORS, $, toast (already in app.js)
+   ============================================================ */
+
+let KNOCKOUT = null;
+
+async function loadKnockout() {
+  try {
+    const r = await fetch('./knockout.json?_=' + Date.now());
+    KNOCKOUT = r.ok ? await r.json() : null;
+  } catch (e) {
+    console.warn('knockout.json load failed:', e);
+    KNOCKOUT = null;
+  }
+}
+
+// ── Scoring: 2p correct advancer, 4p exact score, + rarity bonus ──
+function rarityBonusKO(nCorrect) {
+  if (nCorrect <= 0) return 0;
+  if (nCorrect === 1) return 4;
+  if (nCorrect === 2) return 3;
+  if (nCorrect <= 5)  return 1;
+  return 0;
+}
+
+function recalcKnockoutMatch(m) {
+  if (!m.played || m.actualA === null) return;
+  const actualWinner = m.actualA > m.actualB ? m.home : m.away; // no draws in KO (extra time/pens resolve it)
+  let nCorrect = 0;
+  for (const p of PLAYERS) {
+    const pr = m.preds[p];
+    if (!pr) continue;
+    const exact = pr.a === m.actualA && pr.b === m.actualB;
+    const correctAdvancer = pr.winner === actualWinner;
+    pr.pts   = exact ? 4 : correctAdvancer ? 2 : 0;
+    pr.exact = exact;
+    if (pr.pts > 0) nCorrect++;
+  }
+  const bonus = rarityBonusKO(nCorrect);
+  m.oikein = nCorrect;
+  m.rarity = bonus;
+  if (bonus > 0) {
+    for (const p of PLAYERS) {
+      if (m.preds[p] && m.preds[p].pts > 0) m.preds[p].pts += bonus;
+    }
+  }
+}
+
+function knockoutPlayerTotals() {
+  if (!KNOCKOUT) return {};
+  const totals = Object.fromEntries(PLAYERS.map(p => [p, 0]));
+  for (const round of KNOCKOUT.rounds) {
+    for (const m of round.matches) {
+      if (!m.played) continue;
+      for (const p of PLAYERS) {
+        totals[p] += (m.preds[p]?.pts || 0);
+      }
+    }
+  }
+  return totals;
+}
+
+// ── PANEL: Pudotuspelit ──────────────────────────────────────
+function renderKnockout(el) {
+  if (!KNOCKOUT) {
+    el.innerHTML = `<div class="empty-state">Pudotuspelidataa ei löytynyt ⚽</div>`;
+    return;
+  }
+
+  const koTotals = knockoutPlayerTotals();
+  const koStandings = PLAYERS
+    .map((p, i) => ({ name: p, idx: i, pts: koTotals[p] || 0 }))
+    .sort((a, b) => b.pts - a.pts);
+
+  function matchCard(m, roundId) {
+    const played = m.played;
+    const hasTeams = m.home && m.away;
+    const scoreBadge = played
+      ? `<span class="score-badge">${m.actualA}–${m.actualB}</span>`
+      : `<span class="score-badge upcoming">${hasTeams ? 'TBD' : '—'}</span>`;
+
+    const preds = hasTeams ? PLAYERS.map(p => {
+      const pr = m.preds[p];
+      if (!pr) return '';
+      let cls = played ? (pr.exact ? 'exact' : pr.pts > 0 ? 'right' : 'wrong') : '';
+      const ptsTxt = played ? `<span class="pp">${pr.pts}p</span>` : '';
+      const winnerTag = pr.winner ? ` → ${pr.winner === m.home ? 'A' : pr.winner === m.away ? 'B' : '?'}` : '';
+      return `<div class="pc ${cls}">
+        <span class="pn">${p}</span>
+        <span class="pv">${pr.a ?? '?'}–${pr.b ?? '?'}${winnerTag}</span>${ptsTxt}
+      </div>`;
+    }).join('') : '<div style="padding:8px 12px;color:var(--faint);font-size:12px">Joukkueet eivät vielä selvillä</div>';
+
+    return `<details class="mc">
+      <summary>
+        <span class="grp-badge" style="color:var(--amber);background:var(--amberdim);border:1px solid rgba(255,200,69,.3)">#${m.id}</span>
+        <div class="teams">
+          <div class="tm"><span>${m.homeFlag || '🏳️'}</span> <span>${m.home || 'TBD'}</span></div>
+          <span class="vs">vs</span>
+          <div class="tm away"><span>${m.awayFlag || '🏳️'}</span> <span>${m.away || 'TBD'}</span></div>
+        </div>
+        ${scoreBadge}
+        <span class="chev">▾</span>
+      </summary>
+      <div class="pred-grid">${preds}</div>
+    </details>`;
+  }
+
+  const roundsHtml = KNOCKOUT.rounds.map(round => {
+    if (!round.matches.length) {
+      return `<div class="date-hd">${round.label}</div>
+        <div class="empty-state" style="padding:24px">Ei vielä veikkauksia tälle kierrokselle</div>`;
+    }
+    return `<div class="date-hd">${round.label} · ${round.matches.filter(m=>m.played).length}/${round.matches.length} pelattu</div>
+      ${round.matches.map(m => matchCard(m, round.id)).join('')}`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="panel-hd">
+      <div class="panel-title">Pudotuspelit</div>
+      <div class="panel-sub">2p oikea jatkoonmenijä · 4p tarkka tulos · bonus harvinaisuudesta</div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:20px">
+      <div style="font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px">Pudotuspelien pisteet</div>
+      ${koStandings.map((s,i) => `
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;${i<koStandings.length-1?'border-bottom:1px solid var(--line-s)':''}">
+          <span class="rank-n" style="width:24px">${i+1}</span>
+          <div class="av" style="background:${AVATAR_COLORS[s.idx]};width:28px;height:28px;font-size:11px">${s.name.slice(0,2).toUpperCase()}</div>
+          <span class="pname" style="flex:1">${s.name}</span>
+          <span class="pts-chip">${s.pts}</span>
+        </div>`).join('')}
+    </div>
+
+    ${roundsHtml}`;
+}
+
 // ── Boot ─────────────────────────────────────────────────────
 init();
