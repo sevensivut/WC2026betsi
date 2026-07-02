@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 
 KEY      = os.environ.get("BZZOIRO_KEY", "").strip()
 BASE     = "https://sports.bzzoiro.com/api/v2/events/"
-PARAMS   = "date_from=2026-06-11&date_to=2026-06-28&league_id=27&limit=100"
+PARAMS   = "date_from=2026-06-11&date_to=2026-07-28&league_id=27&limit=100"
 KO_PARAMS = "season_id=188&limit=100"
 OUT      = "results.json"
 KO_FILE  = "knockout.json"
