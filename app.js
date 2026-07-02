@@ -268,6 +268,7 @@ async function init() {
   }
 
   applyResults();
+  await loadKnockout();
   updateHero();
   updateTopbar();
   checkLiveMode();
@@ -360,7 +361,8 @@ function buildPanel(t) {
     race: renderRace,
     matches: renderMatches,
     groups: renderGroups,
-    awards: renderAwards
+    awards: renderAwards,
+    knockout: renderKnockout,
   };
   if (fns[t]) fns[t](el);
 }
@@ -829,10 +831,10 @@ function rarityBonusKO(nCorrect) {
 }
 
 function recalcKnockoutMatch(m) {
-  if (!m.played || m.actualA === null) return;
-  const actualWinner = m.actualA > m.actualB ? m.home : m.away; // no draws in KO (extra time/pens resolve it)
+  if (!m.played || m.actualA === null || !DATA) return;
+  const actualWinner = m.actualA > m.actualB ? m.home : m.away;
   let nCorrect = 0;
-  for (const p of PLAYERS) {
+  for (const p of DATA.players) {
     const pr = m.preds[p];
     if (!pr) continue;
     const exact = pr.a === m.actualA && pr.b === m.actualB;
@@ -845,19 +847,19 @@ function recalcKnockoutMatch(m) {
   m.oikein = nCorrect;
   m.rarity = bonus;
   if (bonus > 0) {
-    for (const p of PLAYERS) {
+    for (const p of DATA.players) {
       if (m.preds[p] && m.preds[p].pts > 0) m.preds[p].pts += bonus;
     }
   }
 }
 
 function knockoutPlayerTotals() {
-  if (!KNOCKOUT) return {};
-  const totals = Object.fromEntries(PLAYERS.map(p => [p, 0]));
+  if (!KNOCKOUT || !DATA) return {};
+  const totals = Object.fromEntries(DATA.players.map(p => [p, 0]));
   for (const round of KNOCKOUT.rounds) {
     for (const m of round.matches) {
       if (!m.played) continue;
-      for (const p of PLAYERS) {
+      for (const p of DATA.players) {
         totals[p] += (m.preds[p]?.pts || 0);
       }
     }
@@ -873,7 +875,7 @@ function renderKnockout(el) {
   }
 
   const koTotals = knockoutPlayerTotals();
-  const koStandings = PLAYERS
+  const koStandings = DATA.players
     .map((p, i) => ({ name: p, idx: i, pts: koTotals[p] || 0 }))
     .sort((a, b) => b.pts - a.pts);
 
@@ -884,7 +886,7 @@ function renderKnockout(el) {
       ? `<span class="score-badge">${m.actualA}–${m.actualB}</span>`
       : `<span class="score-badge upcoming">${hasTeams ? 'TBD' : '—'}</span>`;
 
-    const preds = hasTeams ? PLAYERS.map(p => {
+    const preds = hasTeams ? DATA.players.map(p => {
       const pr = m.preds[p];
       if (!pr) return '';
       let cls = played ? (pr.exact ? 'exact' : pr.pts > 0 ? 'right' : 'wrong') : '';
