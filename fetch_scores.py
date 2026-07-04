@@ -206,12 +206,15 @@ def fetch_match_extras(bz_id):
 # ---------------------------------------------------------------------------
 # Knockout stage sync
 # ---------------------------------------------------------------------------
-def update_knockout():
-    """Sync knockout.json with live Bzzoiro data for R32 → Final."""
-    if not KEY:
-        print("⚠️  BZZOIRO_KEY not set — skipping knockout sync", file=sys.stderr)
-        return
+def update_knockout(raw_events=None):
+    """Sync knockout.json with Bzzoiro data for R32 → Final.
 
+    raw_events: the already-fetched list of raw API event dicts from the
+    group-stage fetch (which includes knockout matches because league_id=27
+    covers the full tournament). Passing these in avoids a second API call
+    and ensures round_name is available (make_game() strips it).
+    Falls back to a fresh season_id fetch if not provided.
+    """
     if not os.path.exists(KO_FILE):
         print(f"⚠️  {KO_FILE} not found — skipping knockout sync", file=sys.stderr)
         return
@@ -219,8 +222,16 @@ def update_knockout():
     with open(KO_FILE, encoding="utf-8") as f:
         ko = json.load(f)
 
-    print("🏆 Fetching knockout events…")
-    events = get_all(f"{BASE}?{KO_PARAMS}")
+    if raw_events is not None:
+        print(f"🏆 Syncing knockout from {len(raw_events)} already-fetched events…")
+        events = raw_events
+    else:
+        # Fallback: fetch independently
+        if not KEY:
+            print("⚠️  BZZOIRO_KEY not set — skipping knockout sync", file=sys.stderr)
+            return
+        print("🏆 Fetching knockout events (separate call)…")
+        events = get_all(f"{BASE}?{KO_PARAMS}")
 
     # Group Bzzoiro events by normalised round name
     by_round = {}
@@ -230,6 +241,8 @@ def update_knockout():
         if not rid:
             continue
         by_round.setdefault(rid, []).append(e)
+
+    print(f"  Rounds found in API data: {list(by_round.keys())}") 
 
     updated_count = 0
 
@@ -269,7 +282,23 @@ def update_knockout():
                 m["played"]  = True
                 m["actualA"] = int(hs)
                 m["actualB"] = int(as_)
-                m["winner"]  = m["home"] if hs > as_ else m["away"]
+                # Determine winner — handle AET draws resolved by penalty shootout
+                if int(hs) > int(as_):
+                    m["winner"] = m["home"]
+                elif int(as_) > int(hs):
+                    m["winner"] = m["away"]
+                else:
+                    # Scores level — check penalty_shootout field
+                    pen = e.get("penalty_shootout") or {}
+                    pen_home = pen.get("home_score") if isinstance(pen, dict) else None
+                    pen_away = pen.get("away_score") if isinstance(pen, dict) else None
+                    if pen_home is not None and pen_away is not None:
+                        m["winner"] = m["home"] if pen_home > pen_away else m["away"]
+                        m["penHome"] = int(pen_home)
+                        m["penAway"] = int(pen_away)
+                    else:
+                        # Can't determine winner yet (data pending)
+                        m["winner"] = None
 
                 # Recalculate every player's points
                 n_correct = 0
@@ -354,7 +383,11 @@ def main():
     print(f"✅  {OUT} written")
 
     # ── Knockout Stage ───────────────────────────────────────────
-    update_knockout()
+    # Pass the already-fetched raw events so update_knockout() doesn't
+    # need to make a separate API call. The league_id=27 fetch with
+    # date_to=2026-07-28 already includes all knockout stage matches,
+    # and crucially the raw events still have round_name intact.
+    update_knockout(raw)
 
 
 if __name__ == "__main__":
